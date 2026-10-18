@@ -78,6 +78,8 @@ def is_valid_memory_address(address):
 def branch_taken(immediate_actually_used):
     global program_counter, output_lines
     registers_state_of_all[0] = 0
+
+    assert immediate_actually_used % 4 == 0, "offset needs to be 4-byte aligned"
     program_counter += immediate_actually_used // 4
     if program_counter < 0 or program_counter >= len(instructions):
         write_output_and_stop()
@@ -288,6 +290,7 @@ while program_counter < len(instructions):
         if rd != 0:
             registers_state_of_all[rd] = ((program_counter + 1) * 4) & 0xFFFFFFFF
         registers_state_of_all[0] = 0
+        assert immediate_actually_used_in_binary % 4 == 0, "immeadiate needs to be 4-byte aligned"
         program_counter += immediate_actually_used_in_binary // 4
         if program_counter < 0 or program_counter >= len(instructions):
             write_output_and_stop()
@@ -297,6 +300,9 @@ while program_counter < len(instructions):
             write_output_and_stop()
         output_lines = save_register_state(program_counter, registers_state_of_all, output_lines)
         continue
+
+    else:
+        raise ValueError("unsupported instruction")
 
     registers_state_of_all[0] = 0
     program_counter += 1
