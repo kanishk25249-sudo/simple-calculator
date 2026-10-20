@@ -219,3 +219,21 @@ Without a board nothing reads `result.txt`, so the calculator behaves the same. 
 | Bridge: `could not open port` | Close any program using the port, and check the COM number |
 | Bridge: `No module named 'serial'` | Run `py -m pip install pyserial` |
 | LEDs show a mirrored pattern | The LED row is wired in the opposite order, so swap them end for end |
+
+
+
+Below is a working demo for the problem 41+56 :
+
+calc> 41+56
+  add:
+    Round 1 (operands in registers, instructions): RISC-V 1 | x86 1 | WASM 3 -> RISC-V & x86 tie for first
+    Round 2 (memory in, memory out, instructions): RISC-V 4 | x86 3 | WASM 7 -> x86 wins
+    Round 3 (constants, bytes of code): RISC-V 12 | x86 8 | WASM 5 -> WASM wins
+  (info only, not judged: RISC-V sim round trip 1158 ms, x86 native 1.6 ns)
+97
+
+Binary Output by ESP32 :
+
+<img width="4080" height="3072" alt="1000126700" src="https://github.com/user-attachments/assets/f88bcb75-a9cf-4334-8970-50421d4b7285" />
+
+
